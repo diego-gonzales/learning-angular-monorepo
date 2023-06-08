@@ -1,0 +1,28 @@
+<div
+  style="
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  "
+>
+  <button
+    mat-button
+    color="primary"
+    (click)="goToPreviousQuestionNumber()"
+    [disabled]="currentQuestionNumber() === 0"
+  >
+    Previous
+  </button>
+  <small>{{ currentQuestionNumber() + 1 }} / {{ questions().length }}</small>
+  <button
+    mat-button
+    color="primary"
+    (click)="goToNextQuestionNumber()"
+    [disabled]="currentQuestionNumber() === questions().length - 1"
+  >
+    Next
+  </button>
+</div>
+<app-quiz-javascript [currentQuestion]="currentQuestion()" />

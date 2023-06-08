@@ -1,0 +1,24 @@
+<mat-card appearance="raised" style="padding: 15px">
+  <h3>{{ currentQuestion.question }}</h3>
+  <pre style="text-align: left">
+    <code>{{ currentQuestion.code }}</code>
+  </pre>
+  <mat-action-list>
+    <button
+      style="text-align: center"
+      mat-list-item
+      *ngFor="let answer of currentQuestion.answers; let i = index"
+      (click)="selectAnswer(i)"
+      [ngStyle]="{
+        backgroundColor: getBackgroundColor(i),
+        cursor:
+          currentQuestion.userSelectedAnswerIndex === undefined
+            ? 'default'
+            : 'not-allowed'
+      }"
+      [disabled]="currentQuestion.userSelectedAnswerIndex !== undefined"
+    >
+      {{ answer }}
+    </button>
+  </mat-action-list>
+</mat-card>

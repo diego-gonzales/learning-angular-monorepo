@@ -1,0 +1,27 @@
+<header
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+  "
+>
+  <app-javascript-icon />
+  <h1 style="margin: 0">Javascript Quiz</h1>
+</header>
+
+<main>
+  <app-start *ngIf="questions().length === 0" />
+  <app-game *ngIf="questions().length > 0" />
+</main>
+
+<footer style="margin: 10px 0" *ngIf="questions().length > 0">
+  <strong>
+    ✅Correct answers: {{ correctAnswers }} | 🛑Incorrect answers:
+    {{ incorrectAnswers }} | 🕐Unanswered questions: {{ unansweredQuestions }}
+  </strong>
+  <div style="margin: 10px 0">
+    <app-reset />
+  </div>
+</footer>
