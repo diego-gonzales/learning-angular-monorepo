@@ -26,7 +26,6 @@ export default class TestHomeComponent {
       return this._users();
     } else {
       console.log('2');
-
       const compareFn: Record<string, (user: User) => string> = {
         [SortingType.COUNTRY]: (user) => user.location.country,
         [SortingType.NAME]: (user) => user.name.first,
@@ -74,8 +73,9 @@ export default class TestHomeComponent {
     this._usersService.resetToInitialUsers();
   }
 
-  onInputChange(event: any) {
-    this.countryFilter.set(event.target.value);
+  onInputChange(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.countryFilter.set(inputValue);
   }
 
   onChangeSortingType(sortingType: SortingType) {

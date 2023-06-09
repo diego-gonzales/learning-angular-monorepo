@@ -16,7 +16,7 @@ export class UsersTableComponent {
   private _usersService = inject(UsersService);
   @Input() isColoringTable!: boolean;
   @Input() users: User[] = [];
-  @Output() onChangeSortingType: EventEmitter<SortingType> = new EventEmitter();
+  @Output() changeSortingType: EventEmitter<SortingType> = new EventEmitter();
   sortingType = SortingType;
 
   getRowBackgroundColor(rowIndex: number) {
@@ -30,6 +30,6 @@ export class UsersTableComponent {
   }
 
   handleSortingChange(sortingType: SortingType) {
-    this.onChangeSortingType.emit(sortingType);
+    this.changeSortingType.emit(sortingType);
   }
 }
