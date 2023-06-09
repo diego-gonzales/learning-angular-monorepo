@@ -2,26 +2,23 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
 
-## Development server
+# Prueba técnica con TypeScript y React
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Esto es una prueba técnica de una empresa europea para un sueldo de 55000 €/anuales.
 
-## Code scaffolding
+El objetivo de esta prueba técnica es crear una aplicación similar a la que se proporciona en este enlace: https://midu-react-11.surge.sh/. Para lograr esto, debe usar la API proporcionada por https://randomuser.me/.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The objective of this technical test is to create an application similar to the one provided in this link: https://midu-react-11.surge.sh/. To achieve this, you must use the API provided by https://randomuser.me/.
 
-## Build
+Here are the steps to follow:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [x] 1. Fetch 100 rows of data using the API.
+- [x] 2. Display the data in a table format, similar to the example.
+- [x] 3. Provide the option to color rows as shown in the example.
+- [x] 4. Allow the data to be sorted by country as demonstrated in the example.
+- [x] 5. Enable the ability to delete a row as shown in the example.
+- [x] 6. Implement a feature that allows the user to restore the initial state, meaning that all deleted rows will be recovered.
+- [x] 7. Handle any potential errors that may occur.
+- [x] 8. Implement a feature that allows the user to filter the data by country.
+- [x] 9. Avoid sorting the users data again when the user is changing filter by country.
+- [x] 10. Sort by clicking on the column header.
