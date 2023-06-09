@@ -1,0 +1,22 @@
+<header>
+  <h1>Product Detail</h1>
+</header>
+
+<main style="width: 50%; margin: 0 auto" *ngIf="product()">
+  <mat-card>
+    <mat-card-content>
+      <div>
+        <img
+          style="width: 200px; height: 250px; object-fit: contain"
+          [src]="product()?.image"
+          [alt]="product()?.title"
+        />
+      </div>
+      <div>
+        <h3>{{ product()?.title }}</h3>
+        <p>{{ product()?.price | currency }}</p>
+        <p>{{ product()?.description }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</main>

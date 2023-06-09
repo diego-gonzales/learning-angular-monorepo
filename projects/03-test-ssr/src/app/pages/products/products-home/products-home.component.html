@@ -1,0 +1,39 @@
+<header>
+  <h1>Technical Test Ssr</h1>
+</header>
+<main>
+  <!-- Filters -->
+  <div style="display: flex; justify-content: center; gap: 10px">
+    <mat-form-field>
+      <mat-label>Product name</mat-label>
+      <input matInput (input)="onInputChange($event)" />
+    </mat-form-field>
+
+    <div>
+      <mat-label>Price: </mat-label>
+      <mat-slider
+        min="0"
+        max="1000"
+        discrete="true"
+        [displayWith]="formatLabel"
+      >
+        <input
+          [value]="filtering().minPrice"
+          (input)="onRangeInput1Change($event)"
+          matSliderStartThumb
+        />
+        <input
+          [value]="filtering().maxPrice"
+          (input)="onRangeInput2Change($event)"
+          matSliderEndThumb
+        />
+      </mat-slider>
+    </div>
+  </div>
+
+  <!-- Products table -->
+  <app-products-table
+    [products]="filteredProducts()"
+    (changeSorting)="onChangeSorting($event)"
+  />
+</main>
