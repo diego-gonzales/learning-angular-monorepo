@@ -1,0 +1,41 @@
+<header>
+  <h1>55k technical test</h1>
+</header>
+
+<main>
+  <div
+    style="
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    "
+  >
+    <button mat-raised-button color="primary" (click)="toggleColoringTable()">
+      {{ isColoringTable() ? "Not coloring table" : "Coloring table" }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="toggleSortingByCountry()"
+    >
+      {{
+        sortingType() === "country" ? "Not sort by country" : "Sort by country"
+      }}
+    </button>
+    <button mat-raised-button color="primary" (click)="resetToInitialUsers()">
+      Reset to intial users
+    </button>
+    <mat-form-field>
+      <mat-label>Country</mat-label>
+      <input matInput (input)="onInputChange($event)" />
+    </mat-form-field>
+  </div>
+
+  <app-users-table
+    [users]="filteredUsers()"
+    [isColoringTable]="isColoringTable()"
+    (onChangeSortingType)="onChangeSortingType($event)"
+  />
+</main>

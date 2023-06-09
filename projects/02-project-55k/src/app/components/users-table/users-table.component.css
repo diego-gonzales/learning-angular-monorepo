@@ -1,0 +1,11 @@
+.myTableClass tr:nth-child(even) {
+  background-color: #333;
+}
+
+.myTableClass tr:nth-child(odd) {
+  background-color: #555;
+}
+
+.columnNamePointer {
+  cursor: pointer;
+}

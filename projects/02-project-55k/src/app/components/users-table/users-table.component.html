@@ -1,0 +1,51 @@
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <th>Photo</th>
+      <th
+        class="columnNamePointer"
+        (click)="handleSortingChange(sortingType.NAME)"
+      >
+        Name
+      </th>
+      <th
+        class="columnNamePointer"
+        (click)="handleSortingChange(sortingType.LASTNAME)"
+      >
+        Lastname
+      </th>
+      <th
+        class="columnNamePointer"
+        (click)="handleSortingChange(sortingType.COUNTRY)"
+      >
+        Country
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <!-- 👀 También se puede colorear directamente aplicando una clase condicional: [ngClass]="{ myTableClass: isColoringTable }" -->
+  <!-- 👀 O también se puede colorear usando isOdd de *ngFor: [ngStyle]="{
+        backgroundColor: isColoringTable
+          ? isOdd
+            ? '#333'
+            : '#555'
+          : 'transparent'" -->
+  <tbody>
+    <tr
+      *ngFor="let user of users; let i = index"
+      [ngStyle]="{ backgroundColor: getRowBackgroundColor(i) }"
+    >
+      <td>
+        <img [src]="user.picture.thumbnail" [alt]="user.name.first" />
+      </td>
+      <td>{{ user.name.first }}</td>
+      <td>{{ user.name.last }}</td>
+      <td>{{ user.location.country }}</td>
+      <td>
+        <button mat-raised-button (click)="deleteUser(user.login.uuid)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
