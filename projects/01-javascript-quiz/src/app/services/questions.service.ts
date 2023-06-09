@@ -8,8 +8,16 @@ import { map } from 'rxjs';
 })
 export class QuestionsService {
   private http = inject(HttpClient);
-  questions = signal<Question[]>([]);
-  currentQuestionNumber = signal(0);
+  private _questions = signal<Question[]>([]);
+  private _currentQuestionNumber = signal(0);
+
+  get questions() {
+    return this._questions.asReadonly();
+  }
+
+  get currentQuestionNumber() {
+    return this._currentQuestionNumber.asReadonly();
+  }
 
   constructor() {
     this.checkDataInLocalStorage();
@@ -22,8 +30,10 @@ export class QuestionsService {
     );
 
     if (storagedQuestions !== null && storagedCurrentQuestionNumber !== null) {
-      this.questions.set(JSON.parse(storagedQuestions));
-      this.currentQuestionNumber.set(JSON.parse(storagedCurrentQuestionNumber));
+      this._questions.set(JSON.parse(storagedQuestions));
+      this._currentQuestionNumber.set(
+        JSON.parse(storagedCurrentQuestionNumber)
+      );
     }
   }
 
@@ -37,7 +47,7 @@ export class QuestionsService {
         })
       )
       .subscribe((resp) => {
-        this.questions.set(resp);
+        this._questions.set(resp);
       });
   }
 
@@ -51,21 +61,21 @@ export class QuestionsService {
     question.userSelectedAnswerIndex = userSelectedAnswerIndex;
     question.isCorrectAnswer = isCorrectAnswer;
 
-    this.questions.set(newQuestions);
+    this._questions.set(newQuestions);
   }
 
   goToNextQuestionNumber() {
     if (this.currentQuestionNumber() === this.questions().length - 1) return;
-    this.currentQuestionNumber.update((currentValue) => currentValue + 1);
+    this._currentQuestionNumber.update((currentValue) => currentValue + 1);
   }
 
   goToPreviousQuestionNumber() {
     if (this.currentQuestionNumber() === 0) return;
-    this.currentQuestionNumber.update((currentValue) => currentValue - 1);
+    this._currentQuestionNumber.update((currentValue) => currentValue - 1);
   }
 
   reset() {
-    this.questions.set([]);
-    this.currentQuestionNumber.set(0);
+    this._questions.set([]);
+    this._currentQuestionNumber.set(0);
   }
 }
