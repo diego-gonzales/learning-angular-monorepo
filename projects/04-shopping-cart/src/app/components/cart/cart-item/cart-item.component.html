@@ -1,0 +1,31 @@
+<div class="flex items-center gap-2 border-[1px] p-2 rounded-md">
+  <div class="flex flex-col items-center gap-1">
+    <button class="btn btn-neutral btn-xs" (click)="onAddProductToCart()">
+      +
+    </button>
+    <span>{{ cartProduct.quantity }}</span>
+    <button class="btn btn-neutral btn-xs" (click)="onRemoveOneToCart()">
+      -
+    </button>
+  </div>
+
+  <img
+    class="w-14 h-14 aspect-video object-cover"
+    [src]="cartProduct.thumbnail"
+    [alt]="cartProduct.title"
+    width="60"
+    height="60"
+  />
+
+  <div class="w-full">
+    <p class="text-sm uppercase">{{ cartProduct.title }}</p>
+    <small class="text-xs">$ {{ cartProduct.price }}</small>
+  </div>
+
+  <button
+    class="btn btn-error btn-sm btn-circle"
+    (click)="onRemoveProductFromCart()"
+  >
+    <img class="w-4" src="assets/icons/trash.svg" alt="trash icon" />
+  </button>
+</div>

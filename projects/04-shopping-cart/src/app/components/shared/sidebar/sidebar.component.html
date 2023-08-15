@@ -1,0 +1,67 @@
+<div class="drawer drawer-end">
+  <input
+    id="my-drawer-4"
+    type="checkbox"
+    class="drawer-toggle"
+    [checked]="asideCartIsOpen()"
+    (change)="onCheckInputChange()"
+  />
+  <div class="drawer-content">
+    <label for="my-drawer-4" class="btn btn-ghost btn-circle">
+      <div class="indicator">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+        </svg>
+        <span class="badge badge-sm indicator-item">
+          {{ cartProducts().length }}
+        </span>
+      </div>
+    </label>
+  </div>
+
+  <aside class="drawer-side z-20">
+    <label for="my-drawer-4" class="drawer-overlay"></label>
+    <section class="p-0 w-72 md:w-80 h-screen bg-neutral text-base-content">
+      <ng-container *ngIf="cartProducts().length > 0; else elseTemplate">
+        <app-cart-list />
+      </ng-container>
+
+      <ng-template #elseTemplate>
+        <div
+          class="flex flex-col justify-center items-center h-[calc(100vh-120px)]"
+        >
+          <span>
+            <img
+              class="w-10"
+              src="assets/icons/shopping-cart-off.svg"
+              alt="empty cart icon"
+            />
+          </span>
+          <span class="text-2xl font-bold">Your cart is empty</span>
+          <span class="text-sm">Add some products to your cart</span>
+        </div>
+      </ng-template>
+
+      <div
+        class="absolute bottom-0 w-full text-center border-t-[1px] h-[120px] flex flex-col justify-evenly items-center"
+      >
+        <span class="font-bold text-lg">0 items</span>
+        <span class="text-info">Subtotal: $ 800</span>
+        <label for="my-drawer-4" class="btn btn-primary btn-xs w-1/2">
+          Close
+        </label>
+      </div>
+    </section>
+  </aside>
+</div>

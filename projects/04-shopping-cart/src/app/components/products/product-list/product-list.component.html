@@ -1,0 +1,7 @@
+<ul
+  class="p-4 grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] max-w-5xl mx-auto"
+>
+  <li *ngFor="let product of products()">
+    <app-product-item [product]="product" />
+  </li>
+</ul>

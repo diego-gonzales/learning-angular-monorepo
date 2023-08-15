@@ -1,0 +1,7 @@
+<ul
+  class="flex flex-col gap-2 px-2 py-4 max-h-[calc(100vh-120px)] overflow-y-auto"
+>
+  <li *ngFor="let cartProduct of cartProducts()">
+    <app-cart-item [cartProduct]="cartProduct" />
+  </li>
+</ul>

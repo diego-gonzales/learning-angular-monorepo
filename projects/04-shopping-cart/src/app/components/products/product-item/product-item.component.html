@@ -1,0 +1,37 @@
+<div class="card card-compact bg-neutral shadow-xl rounded-md">
+  <figure class="px-4 pt-4">
+    <img
+      class="w-full object-cover aspect-video"
+      [src]="product.thumbnail"
+      [alt]="product.title"
+    />
+  </figure>
+
+  <div class="card-body">
+    <p class="text-center font-bold">{{ product.title }}</p>
+    <div class="card-actions justify-center">
+      <button
+        class="btn btn-sm"
+        [class]="!productIsInCart() ? 'btn-primary' : 'btn-error'"
+        (click)="
+          !productIsInCart() ? onAddProductToCart() : onRemoveProductFromCart()
+        "
+      >
+        <ng-container *ngIf="productIsInCart(); else elseTemplate">
+          <img
+            class="w-4"
+            src="assets/icons/shopping-cart-x.svg"
+            alt="cart remove icon"
+          />
+        </ng-container>
+        <ng-template #elseTemplate>
+          <img
+            class="w-4"
+            src="assets/icons/shopping-cart-plus.svg"
+            alt="cart add icon"
+          />
+        </ng-template>
+      </button>
+    </div>
+  </div>
+</div>
