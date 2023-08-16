@@ -11,5 +11,5 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductListComponent {
   private _productsService = inject(ProductsService);
-  products = this._productsService.products;
+  products = this._productsService.filteredProducts;
 }

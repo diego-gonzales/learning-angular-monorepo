@@ -1,22 +1,36 @@
-<form class="md:flex md:gap-4 md:justify-center md:items-center p-4">
+<form class="flex flex-col md:flex-row gap-4 justify-center items-center p-4">
   <div class="form-control w-full max-w-xs">
     <label class="label">
       <span class="label-text">Max. price:</span>
     </label>
-    <input class="range range-xs" type="range" min="0" max="100" value="40" />
+    <div class="flex gap-2 items-center">
+      <input
+        class="range range-xs"
+        type="range"
+        min="0"
+        max="1800"
+        [value]="filters().maxPrice"
+        (change)="onInputRangeChange($event)"
+      />
+      <span class="text-sm">{{ filters().maxPrice | currency }}</span>
+    </div>
   </div>
 
   <div class="form-control w-full max-w-xs">
     <label class="label">
       <span class="label-text">Category:</span>
     </label>
-    <select class="select select-bordered select-sm">
-      <option disabled selected>Pick one</option>
-      <option>Star Wars</option>
-      <option>Harry Potter</option>
-      <option>Lord of the Rings</option>
-      <option>Planet of the Apes</option>
-      <option>Star Trek</option>
+    <select
+      class="select select-bordered select-sm capitalize"
+      (change)="onSelectChange($event)"
+    >
+      <option
+        class="capitalize"
+        *ngFor="let category of categories()"
+        [selected]="category === filters().category"
+      >
+        {{ category }}
+      </option>
     </select>
   </div>
 </form>

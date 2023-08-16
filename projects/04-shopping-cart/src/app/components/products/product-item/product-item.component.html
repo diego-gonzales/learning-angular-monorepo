@@ -1,4 +1,4 @@
-<div class="card card-compact bg-neutral shadow-xl rounded-md">
+<div class="card card-compact bg-neutral shadow-xl rounded-md max-w-md mx-auto">
   <figure class="px-4 pt-4">
     <img
       class="w-full object-cover aspect-video"
@@ -8,7 +8,10 @@
   </figure>
 
   <div class="card-body">
-    <p class="text-center font-bold">{{ product.title }}</p>
+    <p class="text-center font-bold">
+      {{ product.title }} -
+      <span class="font-normal">{{ product.price | currency }}</span>
+    </p>
     <div class="card-actions justify-center">
       <button
         class="btn btn-sm"
