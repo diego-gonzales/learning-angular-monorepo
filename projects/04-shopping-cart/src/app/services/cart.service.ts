@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, effect, signal } from '@angular/core';
 import { Product } from '../interfaces/products.interface';
 
 @Injectable({
@@ -6,13 +6,18 @@ import { Product } from '../interfaces/products.interface';
 })
 export class CartService {
   private _cartProducts = signal<Product[]>([]);
+  subtotal = computed(() =>
+    this._cartProducts().reduce((acc, cp) => {
+      return acc + cp.price * cp.quantity!;
+    }, 0)
+  );
 
   get cartProducts() {
     return this._cartProducts.asReadonly();
   }
 
   addProductToCart(product: Product) {
-    const cartProductIndex = this.cartProducts().findIndex(
+    const cartProductIndex = this._cartProducts().findIndex(
       (cp) => cp.id === product.id
     );
 
@@ -46,7 +51,6 @@ export class CartService {
         quantity: product.quantity! - 1,
       };
     });
-    console.log(this._cartProducts());
   }
 
   removeProductFromCart(cartProductId: number) {

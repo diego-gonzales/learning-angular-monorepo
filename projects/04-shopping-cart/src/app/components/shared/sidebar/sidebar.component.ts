@@ -13,6 +13,7 @@ export class SidebarComponent {
   asideCartIsOpen = signal(false);
   private _cartService = inject(CartService);
   cartProducts = this._cartService.cartProducts;
+  subtotal = this._cartService.subtotal;
 
   constructor() {
     effect(() => {

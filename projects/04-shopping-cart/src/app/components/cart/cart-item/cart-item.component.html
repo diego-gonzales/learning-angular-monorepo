@@ -4,7 +4,11 @@
       +
     </button>
     <span>{{ cartProduct.quantity }}</span>
-    <button class="btn btn-neutral btn-xs" (click)="onRemoveOneToCart()">
+    <button
+      class="btn btn-neutral btn-xs"
+      (click)="onRemoveOneToCart()"
+      [disabled]="cartProduct.quantity === 1"
+    >
       -
     </button>
   </div>
