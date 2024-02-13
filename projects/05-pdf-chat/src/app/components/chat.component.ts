@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { APP_STATUS_TYPES } from '../constants';
 import { StoreService } from '../services/store.service';
@@ -16,10 +16,13 @@ import { StepChatComponent } from './step-chat.component';
     StepChatComponent,
   ],
   template: `
-    @if (appStatus === appStatusTypes.INIT) {
-      <app-step-upload />
-    } @else if (appStatus === appStatusTypes.LOADING) {
-      <app-step-loading />
+    @if (showUploadPdf()) {
+      <app-step-upload
+        [ngClass]="{ hidden: appStatus === appStatusTypes.LOADING }"
+      />
+      <app-step-loading
+        [ngClass]="{ hidden: appStatus === appStatusTypes.INIT }"
+      />
     } @else if (appStatus === appStatusTypes.ERROR) {
       <div role="alert" class="alert">
         <div>
@@ -42,6 +45,12 @@ import { StepChatComponent } from './step-chat.component';
 export class ChatComponent {
   private _storeService = inject(StoreService);
   appStatusTypes = APP_STATUS_TYPES;
+  showUploadPdf = computed(() => {
+    return (
+      this.appStatus === this.appStatusTypes.INIT ||
+      this.appStatus === this.appStatusTypes.LOADING
+    );
+  });
 
   get appStatus() {
     return this._storeService.appStatus();

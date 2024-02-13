@@ -8,23 +8,20 @@ import { StoreService } from '../services/store.service';
   standalone: true,
   imports: [CommonModule, DropzoneModule],
   template: `
-    @if (!acceptedFile()) {
-      <dropzone
-        class="h-20 flex flex-wrap"
-        [config]="config()"
-        message="Drag here your PDF"
-        (processing)="onProcessing($event)"
-        (error)="onUploadError()"
-        (success)="onUploadSuccess()"
-      />
-    }
+    <dropzone
+      class="h-20 flex flex-wrap"
+      [config]="config()"
+      message="Drag here your PDF"
+      (processing)="onProcessing($event)"
+      (error)="onUploadError($event)"
+      (success)="onUploadSuccess($event)"
+    />
   `,
 })
 export class StepUploadComponent {
   private _storeService = inject(StoreService);
-  acceptedFile = signal<File | null>(null);
   config = signal<DropzoneConfigInterface>({
-    url: 'https://httpbin.org/post',
+    url: 'http://localhost:3000/api/upload-pdf',
     method: 'POST',
     clickable: true,
     maxFiles: 1,
@@ -34,15 +31,16 @@ export class StepUploadComponent {
 
   onProcessing(file: File) {
     if (!file) return;
-    this.acceptedFile.set(file);
     this._storeService.setToLoadingAppStatus();
   }
 
-  onUploadError() {
+  onUploadError(event: any) {
+    console.log(event);
     this._storeService.setToErrorAppStatus();
   }
 
-  onUploadSuccess() {
-    this._storeService.setToChatModeAppStatus();
+  onUploadSuccess(event: any) {
+    const { url, pages, public_id } = event[1];
+    this._storeService.setToChatModeAppStatus({ url, pages, public_id });
   }
 }
