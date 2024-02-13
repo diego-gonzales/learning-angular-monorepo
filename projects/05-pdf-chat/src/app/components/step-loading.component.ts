@@ -6,11 +6,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <p>
-      step-loading works!
-    </p>
-  `
+    <div class="flex flex-col gap-1 justify-center items-center">
+      <span class="loading loading-dots loading-lg opacity-75"></span>
+      <p class="opacity-75">Processing PDF...</p>
+    </div>
+  `,
 })
-export class StepLoadingComponent {
-
-}
+export class StepLoadingComponent {}
