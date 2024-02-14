@@ -22,6 +22,7 @@ import { StepChatComponent } from './step-chat.component';
       />
       <app-step-loading
         [ngClass]="{ hidden: appStatus === appStatusTypes.INIT }"
+        loadingMessage="Processing PDF..."
       />
     } @else if (appStatus === appStatusTypes.ERROR) {
       <div role="alert" class="alert">

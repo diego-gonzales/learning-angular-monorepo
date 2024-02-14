@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DropzoneConfigInterface, DropzoneModule } from 'ngx-dropzone-wrapper';
 import { StoreService } from '../services/store.service';
-import { environment } from '../../environments/environment';
+// import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-step-upload',
@@ -20,10 +20,10 @@ import { environment } from '../../environments/environment';
   `,
 })
 export class StepUploadComponent {
-  private _apiUrl = environment.apiUrl;
+  // private _apiUrl = environment.apiUrl;
   private _storeService = inject(StoreService);
   config = signal<DropzoneConfigInterface>({
-    url: `${this._apiUrl}/api/upload-pdf`,
+    url: `/api/upload-pdf`,
     method: 'POST',
     clickable: true,
     maxFiles: 1,

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   NonNullableFormBuilder,
@@ -6,11 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { StoreService } from '../services/store.service';
+import { ChatService } from '../services/chat.service';
+import { StepLoadingComponent } from './step-loading.component';
 
 @Component({
   selector: 'app-step-chat',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, StepLoadingComponent],
   template: `
     @if (imageUrls.length > 0) {
       <div class="h-[300px] carousel carousel-vertical rounded-box">
@@ -22,7 +24,7 @@ import { StoreService } from '../services/store.service';
       </div>
     }
 
-    <form class="my-3" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="mb-4" [formGroup]="form" (ngSubmit)="onSubmit()">
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">Ask a question about your PDF</span>
@@ -33,7 +35,7 @@ import { StoreService } from '../services/store.service';
           class="input input-bordered w-full"
           formControlName="question"
         />
-        @if (questionControl.invalid && questionControl.touched) {
+        @if (questionControl.invalid && !questionControl.pristine) {
           <div class="label">
             <span class="label-text-alt text-red-500">
               This field is required
@@ -42,24 +44,37 @@ import { StoreService } from '../services/store.service';
         }
       </label>
     </form>
+
+    @if (isLoading()) {
+      <app-step-loading loadingMessage="Examining PDF..." />
+    }
   `,
 })
 export class StepChatComponent {
   private _storeService = inject(StoreService);
+  private _chatService = inject(ChatService);
   private _formBuilder = inject(NonNullableFormBuilder);
   form = this._formBuilder.group({
     question: ['', Validators.required],
   });
   private numOfPagesToShow = computed(() => Math.min(this.appInfo.pages, 4));
   imageUrls = computed(() => this.getImagesToShow());
+  isLoading = signal<boolean>(false);
 
   onSubmit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+    if (this.form.invalid || this.questionControl.value.trim() === '') {
       return;
     }
 
-    console.log('Form submitted');
+    this.isLoading.set(true);
+
+    this._chatService
+      .askGemini(this.questionControl.value)
+      .subscribe((resp) => {
+        console.log(resp);
+        this.isLoading.set(false);
+        this.form.reset();
+      });
   }
 
   getImagesToShow() {

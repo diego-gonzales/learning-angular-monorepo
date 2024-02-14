@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,10 +6,12 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="flex flex-col gap-1 justify-center items-center">
+    <div class="flex flex-col justify-center items-center">
       <span class="loading loading-dots loading-lg opacity-75"></span>
-      <p class="opacity-75">Processing PDF...</p>
+      <p class="opacity-75">{{ loadingMessage }}</p>
     </div>
   `,
 })
-export class StepLoadingComponent {}
+export class StepLoadingComponent {
+  @Input() loadingMessage = 'Loading...';
+}
