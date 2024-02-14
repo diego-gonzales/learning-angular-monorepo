@@ -6,7 +6,7 @@ import { UploadResponse } from '../interfaces/upload-response.interface';
   providedIn: 'root',
 })
 export class StoreService {
-  #appStatus = signal<AppStatus>(APP_STATUS_TYPES.INIT);
+  #appStatus = signal<AppStatus>(APP_STATUS_TYPES.CHAT_MODE);
   #appInfo = signal<UploadResponse>({
     url: '',
     pages: 0,
