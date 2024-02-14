@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DropzoneConfigInterface, DropzoneModule } from 'ngx-dropzone-wrapper';
 import { StoreService } from '../services/store.service';
-// import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-step-upload',
@@ -20,15 +20,17 @@ import { StoreService } from '../services/store.service';
   `,
 })
 export class StepUploadComponent {
-  // private _apiUrl = environment.apiUrl;
+  private _apiUrl = environment.apiUrl;
   private _storeService = inject(StoreService);
   config = signal<DropzoneConfigInterface>({
-    url: `/api/upload-pdf`,
+    url: `${this._apiUrl}/api/upload-pdf`,
     method: 'POST',
     clickable: true,
     maxFiles: 1,
+    maxFilesize: 1,
     acceptedFiles: 'application/pdf',
     previewsContainer: false,
+    timeout: 360000, // 6 minutes
   });
 
   onProcessing(file: File) {
@@ -42,7 +44,7 @@ export class StepUploadComponent {
   }
 
   onUploadSuccess(event: any) {
-    const { url, pages, public_id } = event[1];
-    this._storeService.setToChatModeAppStatus({ url, pages, public_id });
+    const { url, pages, id } = event[1];
+    this._storeService.setToChatModeAppStatus({ url, pages, id });
   }
 }

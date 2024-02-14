@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   NonNullableFormBuilder,
@@ -14,7 +14,7 @@ import { StepLoadingComponent } from './step-loading.component';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, StepLoadingComponent],
   template: `
-    @if (imageUrls.length > 0) {
+    @if (imageUrls().length > 0) {
       <div class="h-[300px] carousel carousel-vertical rounded-box">
         @for (imageUrl of imageUrls(); track $index) {
           <div class="carousel-item h-full">
@@ -24,7 +24,7 @@ import { StepLoadingComponent } from './step-loading.component';
       </div>
     }
 
-    <form class="mb-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="mt-2 mb-4" [formGroup]="form" (ngSubmit)="onSubmit()">
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">Ask a question about your PDF</span>
@@ -48,6 +48,12 @@ import { StepLoadingComponent } from './step-loading.component';
     @if (isLoading()) {
       <app-step-loading loadingMessage="Examining PDF..." />
     }
+
+    @if (aiResponse() && !isLoading()) {
+      <div class="text-left rounded-box p-4 bg-base-200 mt-4">
+        <p>{{ aiResponse() }}</p>
+      </div>
+    }
   `,
 })
 export class StepChatComponent {
@@ -60,6 +66,7 @@ export class StepChatComponent {
   private numOfPagesToShow = computed(() => Math.min(this.appInfo.pages, 4));
   imageUrls = computed(() => this.getImagesToShow());
   isLoading = signal<boolean>(false);
+  aiResponse = signal<string>('');
 
   onSubmit() {
     if (this.form.invalid || this.questionControl.value.trim() === '') {
@@ -69,16 +76,15 @@ export class StepChatComponent {
     this.isLoading.set(true);
 
     this._chatService
-      .askGemini(this.questionControl.value)
+      .askGemini(this.appInfo.id, this.questionControl.value)
       .subscribe((resp) => {
-        console.log(resp);
+        this.aiResponse.set(resp.answer);
         this.isLoading.set(false);
         this.form.reset();
       });
   }
 
   getImagesToShow() {
-    console.log('getImagesToShow');
     return Array.from({ length: this.numOfPagesToShow() }, (_, i) => {
       const page = i + 1;
       return this.appInfo.url
