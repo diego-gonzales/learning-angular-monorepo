@@ -46,7 +46,7 @@ class TestComponent {
   loadingMessage = 'Mensajito...';
 }
 
-fdescribe('StepLoadingComponent in isolated TestComponent', () => {
+describe('StepLoadingComponent in isolated TestComponent', () => {
   let testComponent: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 

@@ -44,6 +44,8 @@ export class StepUploadComponent {
   }
 
   onUploadSuccess(event: any) {
+    if (!event) return;
+
     const { url, pages, id } = event[1];
     this._storeService.setToChatModeAppStatus({ url, pages, id });
   }
