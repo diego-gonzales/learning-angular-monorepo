@@ -4,7 +4,7 @@ import { StepUploadComponent } from './step-upload.component';
 import { StoreService } from '../services/store.service';
 import { By } from '@angular/platform-browser';
 
-fdescribe('StepUploadComponent', () => {
+describe('StepUploadComponent', () => {
   let component: StepUploadComponent;
   let fixture: ComponentFixture<StepUploadComponent>;
   let storeService: StoreService;
