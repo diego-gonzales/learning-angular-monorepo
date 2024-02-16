@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { chatInterceptor } from '../interceptors/chat.interceptor';
 
-fdescribe('ChatService', () => {
+describe('ChatService', () => {
   let chatService: ChatService;
   let storeService: StoreService;
   let httpTestingController: HttpTestingController;
