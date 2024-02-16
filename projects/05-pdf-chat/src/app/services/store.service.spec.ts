@@ -4,7 +4,7 @@ import { StoreService } from './store.service';
 import { APP_STATUS_TYPES } from '../constants';
 import { UploadResponse } from '../interfaces/upload-response.interface';
 
-fdescribe('StoreService', () => {
+describe('StoreService', () => {
   let storeService: StoreService;
 
   beforeEach(() => {
